@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Canno+Modern:wght@400;700&display=swap">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #222;
+            color: #fff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 4em;
+        }
+
+        #clock {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            cursor: pointer; /* Add cursor pointer for indicating the clock is clickable */
+        }
+
+        #search-bar {
+            width: 120px;
+            padding: 5px;
+            font-size: 0.5em;
+            font-family: 'Canno Modern', sans-serif;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            outline: none;
+            transition: width 0.3s ease;
+        }
+
+        #search-bar::placeholder {
+            font-size: 0.5em;
+            font-family: 'Canno Modern', sans-serif;
+            color: #aaa;
+        }
+
+        #search-bar:focus {
+            width: 150px;
+        }
+
+        @media (min-width: 768px) {
+            /* Styles for screens wider than 768px (desktop) */
+            #search-bar {
+                display: none; /* Hide the search bar on desktop view */
+            }
+
+            #clock {
+                padding: 40px; /* Increase padding for a wider appearance */
+            }
+
+            body {
+                font-size: 6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="clock" onclick="redirectToInstagram()">
+        <div id="hours"></div>
+        <div id="minutes"></div>
+    </div>
+
+    <input id="search-bar" type="text" placeholder="Search" oninput="updateFontSize()" onkeydown="search(event)">
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes;
+        }
+
+        // Initial clock update
+        updateClock();
+
+        // Update clock every minute
+        setInterval(updateClock, 60000);
+
+        function search(event) {
+            if (event.key === "Enter") {
+                const searchTerm = document.getElementById('search-bar').value;
+                const searchURL = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
+                window.location.href = searchURL;
+            }
+        }
+
+        function updateFontSize() {
+            const searchBar = document.getElementById('search-bar');
+            searchBar.style.fontSize = '0.2em'; // Adjust the font size as needed
+        }
+
+        function redirectToInstagram() {
+            window.location.href = "https://instagram.com/charle_404";
+        }
+    </script>
+</body>
+</html>
